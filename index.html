@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出片相机 - 用户使用手册</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #007AFF;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 40px;
+        }
+        h2 {
+            color: #007AFF;
+            border-bottom: 2px solid #007AFF;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        h3 {
+            color: #333;
+            margin-top: 30px;
+        }
+        .feature-box {
+            background: #f0f8ff;
+            border-left: 4px solid #007AFF;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .tip-box {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .step {
+            background: #e8f5e8;
+            border: 1px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+        }
+        .step-number {
+            background: #28a745;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .icon {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+        .device-support {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .device-card {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+        .device-card h4 {
+            color: #007AFF;
+            margin-top: 0;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .table th, .table td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        .table th {
+            background: #007AFF;
+            color: white;
+        }
+        .table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            color: #666;
+        }
+        .version-info {
+            background: #e9ecef;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 出片相机</h1>
+        <p class="subtitle">专业级智能构图相机应用 - 让每个人都能拍出完美照片</p>
+        
+        <div class="version-info">
+            <strong>版本信息：</strong> v1.0.1 | 支持iOS 18.0+ | 支持iPhone
+        </div>
+
+        <h2>🎯 应用概述</h2>
+        <p>出片相机是一款革命性的智能AI相机应用，集成了先进的人工智能技术，包括人脸识别、眼睛跟踪、场景检测和智能构图算法。无论您是摄影新手还是专业摄影师，出片相机都能帮助您轻松拍出具有专业美学的照片。</p>
+
+
+
+        <h2>📱 设备支持</h2>
+        <div class="device-support">
+            <div class="device-card">
+                <h4>📱 iPhone支持</h4>
+                <ul>
+                    <li>iPhone X及以上型号</li>
+                    <li>iOS 18.0+</li>
+                    <li>单栏导航模式</li>
+                    <li>全屏相机预览</li>
+                    <li>优化的触摸控制</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>🚀 快速开始</h2>
+        
+        <h3>第一步：启动应用</h3>
+        <div class="step">
+            <span class="step-number">1</span>
+            <strong>启动出片相机应用</strong><br>
+            应用启动后会自动初始化所有AI功能，包括人脸检测、场景识别和智能构图系统。
+        </div>
+
+        <h3>第二步：AI辅助构图</h3>
+        <div class="step">
+            <span class="step-number">2</span>
+            <strong>AI自动检测</strong><br>
+            系统会自动检测画面中的元素。
+        </div>
+
+        <div class="step">
+            <span class="step-number">3</span>
+            <strong>智能构图计算</strong><br>
+            基于检测结果，系统会显示最佳构图框和白色引导圆圈。
+        </div>
+
+        <h3>第三步：移动手机</h3>
+        <div class="step">
+            <span class="step-number">4</span>
+            <strong>跟随白色圆点</strong><br>
+            将屏幕上的白色圆点移动到白色圆圈内。
+        </div>
+
+        <h3>第四步：自动优化</h3>
+        <div class="step">
+            <span class="step-number">5</span>
+            <strong>融合特效</strong><br>
+            当白色圆点进入圆圈后，系统会触发融合特效，表示构图完成。
+        </div>
+
+        <div class="step">
+            <span class="step-number">6</span>
+            <strong>自动变焦</strong><br>
+            系统会自动变焦到最佳拍摄距离。
+        </div>
+
+        <h3>第五步：拍照</h3>
+        <div class="step">
+            <span class="step-number">7</span>
+            <strong>点击拍照</strong><br>
+            在静默模式下点击拍照按钮，完成拍摄。照片会自动保存到相册。
+        </div>
+
+        <h2>🎮 界面功能详解</h2>
+
+        <h3>📱 iPhone界面布局</h3>
+        <div class="feature-box">
+            <h4>顶部控制栏</h4>
+            <ul>
+                <li><strong>AI构图图标</strong>：显示AI辅助构图状态，点击可开启/关闭</li>
+                <li><strong>闪光灯控制</strong>：点击切换闪光灯开启/关闭</li>
+                <li><strong>相机切换</strong>：前后摄像头切换</li>
+            </ul>
+        </div>
+
+        <div class="feature-box">
+            <h4>底部控制栏</h4>
+            <ul>
+                <li><strong>相册预览</strong>：左下角显示最新照片缩略图，点击查看相册</li>
+                <li><strong>拍照按钮</strong>：中央大按钮，点击拍照</li>
+                <li><strong>占位符</strong>：右下角保持布局平衡</li>
+            </ul>
+        </div>
+
+        <h3>📱 iPad界面布局</h3>
+        <div class="feature-box">
+            <h4>竖屏模式</h4>
+            <ul>
+                <li>与iPhone类似的布局，但按钮尺寸更大</li>
+                <li>支持状态栏显示</li>
+                <li>优化的安全区域处理</li>
+            </ul>
+        </div>
+
+        <div class="feature-box">
+            <h4>横屏模式（三栏布局）</h4>
+            <ul>
+                <li><strong>左侧控制栏</strong>：闪光灯、相机切换</li>
+                <li><strong>中央预览区</strong>：相机预览、AI构图图标、相册预览</li>
+                <li><strong>右侧控制栏</strong>：AI构图图标、拍照按钮、相册预览</li>
+            </ul>
+        </div>
+        <div class="warning-box">
+            <h4>⚠️ 关闭AI功能注意事项</h4>
+            <ul>
+                <li>关闭AI辅助构图会将APP完全重置到刚启动时的状态</li>
+                <li>所有管理器状态、UI状态、相机状态都会被清零</li>
+                <li>重新开启后会恢复到APP启动时的默认配置</li>
+                <li>关闭状态下APP进入纯手动拍摄模式</li>
+            </ul>
+        </div>
+
+        <h3>📸 相册预览功能</h3>
+        <div class="feature-box">
+            <h4>便捷访问</h4>
+            <ul>
+                <li><strong>实时预览</strong>：显示最新照片的缩略图</li>
+                <li><strong>一键访问</strong>：点击直接打开相册</li>
+                <li><strong>权限管理</strong>：智能处理相册访问权限</li>
+                <li><strong>网格浏览</strong>：全屏相册界面，4列网格显示</li>
+            </ul>
+        </div>
+
+        <h3>🔧 变焦控制</h3>
+        <div class="feature-box">
+            <h4>智能变焦</h4>
+            <ul>
+                <li><strong>手势变焦</strong>：双指捏合/展开调整变焦倍数</li>
+                <li><strong>自动变焦</strong>：构图完成后自动变焦到最佳距离</li>
+                <li><strong>变焦控制</strong>：显示当前变焦倍数和变焦按钮</li>
+                <li><strong>自动隐藏</strong>：变焦控制会在3秒后自动隐藏</li>
+            </ul>
+        </div>
+
+        <h2>💡 使用技巧</h2>
+
+        <div class="tip-box">
+            <h4>🎯 最佳拍摄实践</h4>
+            <ol>
+                <li><strong>保持稳定</strong>：拍摄时尽量保持手机稳定，避免抖动</li>
+                <li><strong>光线充足</strong>：在光线充足的环境下拍摄效果更佳</li>
+                <li><strong>面部清晰</strong>：确保人脸清晰可见，避免遮挡</li>
+                <li><strong>耐心等待</strong>：给AI系统足够时间完成检测和构图</li>
+                <li><strong>跟随引导</strong>：仔细跟随白色圆点的引导进行构图</li>
+            </ol>
+        </div>
+
+        <div class="tip-box">
+            <h4>🔧 故障排除</h4>
+            <ul>
+                <li><strong>AI检测不到人脸</strong>：确保人脸清晰可见，光线充足</li>
+                <li><strong>构图框不显示</strong>：检查AI构图功能是否开启</li>
+                <li><strong>变焦不工作</strong>：确保构图完成后再进行变焦</li>
+                <li><strong>拍照失败</strong>：检查相机权限是否已授予</li>
+                <li><strong>应用卡顿</strong>：重启应用或检查设备存储空间</li>
+            </ul>
+        </div>
+
+        <h2>🔒 隐私与安全</h2>
+
+        <div class="feature-box">
+            <h4>🛡️ 隐私保护</h4>
+            <ul>
+                <li><strong>本地处理</strong>：所有AI计算在设备本地完成，不上传云端</li>
+                <li><strong>无网络依赖</strong>：完全离线运行，保护用户隐私</li>
+                <li><strong>权限最小化</strong>：仅请求必要的相机和相册权限</li>
+                <li><strong>数据安全</strong>：拍摄的照片仅保存在本地相册</li>
+            </ul>
+        </div>
+
+        <h2>📞 技术支持</h2>
+
+        <div class="feature-box">
+            <p>如有任何问题，请通过以下方式联系我们：</p>
+            
+            <h4>联系方式</h4>
+            <ul>
+                <li>邮箱：lhksmail@qq.com</li>
+                <li>工作时间：周一至周五 9:00-18:00</li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p><strong>出片相机 智能AI相机</strong></p>
+            <p>版本 1.0.3 | 最后更新：2025年7月</p>
+            <p>让每个人都能拍出专业级照片</p>
+        </div>
+    </div>
+    
+    <h2>隐私申明</h2>
+    <p>查看完整使用指南：<a href="http://apexwave.xyz/manual.html">出片相机使用手册</a></p>
+</body>
+</html> 
