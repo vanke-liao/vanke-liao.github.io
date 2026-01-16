@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>玻璃推窗动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
+        }
+
+        .container {
+            width: 375px;
+            height: 812px;
+            background: #fff;
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.15);
+        }
+
+        .window-scene {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* 初始页面 */
+        .initial-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .initial-screen.pushing {
+            transform: scale(0.95);
+            filter: brightness(0.9);
+        }
+
+        /* 窗户容器 */
+        .window-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        /* 玻璃窗户 */
+        .window-left, .window-right {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            top: 0;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .window-left {
+            left: 0;
+            transform-origin: left center;
+            border-right: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .window-right {
+            right: 0;
+            transform-origin: right center;
+            border-left: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* 窗户打开状态 */
+        .window-left.open {
+            transform: translateX(-85%) rotateY(-60deg);
+        }
+
+        .window-right.open {
+            transform: translateX(85%) rotateY(60deg);
+        }
+
+        /* 玻璃反光效果 */
+        .glass-reflection {
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            right: 15%;
+            bottom: 15%;
+            background: linear-gradient(135deg, 
+                rgba(255, 255, 255, 0.4) 0%, 
+                rgba(255, 255, 255, 0.1) 50%, 
+                rgba(255, 255, 255, 0.3) 100%);
+            border-radius: 10px;
+            pointer-events: none;
+        }
+
+        .reflection-strip {
+            position: absolute;
+            top: 10%;
+            left: 20%;
+            width: 60%;
+            height: 20%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.6) 50%, 
+                transparent 100%);
+            border-radius: 50%;
+            filter: blur(8px);
+            animation: reflectionMove 3s ease-in-out infinite;
+        }
+
+        @keyframes reflectionMove {
+            0%, 100% { transform: translateX(-20px); }
+            50% { transform: translateX(20px); }
+        }
+
+        /* 新页面内容 */
+        .new-screen {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 1s ease 0.4s;
+            transform: scale(1.05);
+        }
+
+        .new-screen.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* 窗户把手 */
+        .window-handle {
+            position: absolute;
+            width: 30px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .window-left .window-handle {
+            right: 20px;
+        }
+
+        .window-right .window-handle {
+            left: 20px;
+        }
+
+        .content {
+            text-align: center;
+            color: #333;
+            padding: 40px;
+            z-index: 20;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+
+        /* 自动推开窗户按钮 */
+        .auto-button {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            color: #333;
+            padding: 18px 45px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auto-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            background: white;
+        }
+
+        .auto-button:active {
+            transform: scale(0.95);
+        }
+
+        .auto-button:disabled {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* 进度指示器 */
+        .progress-indicator {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 15;
+        }
+
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .progress-dot.active {
+            background: #333;
+            transform: scale(1.2);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 480px) {
+            .container {
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="window-scene">
+            <!-- 初始页面 -->
+            <div class="initial-screen" id="initialScreen">
+                <div class="content">
+                    <h1>玻璃推窗动画</h1>
+                    <p>点击按钮观看自动推窗效果</p>
+                    <button class="auto-button" id="pushButton" onclick="autoOpenWindow()">自动推开窗户</button>
+                </div>
+            </div>
+
+            <!-- 窗户容器 -->
+            <div class="window-container">
+                <!-- 左窗扇 -->
+                <div class="window-left" id="windowLeft">
+                    <div class="glass-reflection"></div>
+                    <div class="reflection-strip"></div>
+                    <div class="window-handle"></div>
+                </div>
+
+                <!-- 右窗扇 -->
+                <div class="window-right" id="windowRight">
+                    <div class="glass-reflection"></div>
+                    <div class="reflection-strip"></div>
+                    <div class="window-handle"></div>
+                </div>
+            </div>
+
+            <!-- 新页面内容 -->
+            <div class="new-screen" id="newScreen">
+                <div class="content">
+                    <h1>全新视野</h1>
+                    <p>玻璃窗户已自动打开</p>
+                    <button class="auto-button" onclick="autoCloseWindow()">自动关闭窗户</button>
+                </div>
+            </div>
+
+            <!-- 进度指示器 -->
+            <div class="progress-indicator">
+                <div class="progress-dot active" id="dot1"></div>
+                <div class="progress-dot" id="dot2"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isWindowOpen = false;
+        let isAnimating = false;
+
+        function updateProgress() {
+            document.getElementById('dot1').classList.toggle('active', !isWindowOpen);
+            document.getElementById('dot2').classList.toggle('active', isWindowOpen);
+        }
+
+        function autoOpenWindow() {
+            if (isAnimating || isWindowOpen) return;
+            
+            isAnimating = true;
+            const windowLeft = document.getElementById('windowLeft');
+            const windowRight = document.getElementById('windowRight');
+            const newScreen = document.getElementById('newScreen');
+            const initialScreen = document.getElementById('initialScreen');
+            const pushButton = document.getElementById('pushButton');
+
+            // 禁用按钮
+            pushButton.disabled = true;
+
+            // 添加初始屏幕缩小效果
+            initialScreen.classList.add('pushing');
+
+            // 窗户打开动画
+            setTimeout(() => {
+                windowLeft.classList.add('open');
+                windowRight.classList.add('open');
+            }, 300);
+
+            // 显示新屏幕
+            setTimeout(() => {
+                newScreen.classList.add('show');
+            }, 700);
+
+            // 动画完成后更新状态
+            setTimeout(() => {
+                isWindowOpen = true;
+                isAnimating = false;
+                updateProgress();
+                pushButton.disabled = false;
+            }, 1500);
+        }
+
+        function autoCloseWindow() {
+            if (isAnimating || !isWindowOpen) return;
+            
+            isAnimating = true;
+            const windowLeft = document.getElementById('windowLeft');
+            const windowRight = document.getElementById('windowRight');
+            const newScreen = document.getElementById('newScreen');
+            const initialScreen = document.getElementById('initialScreen');
+
+            // 隐藏新屏幕
+            newScreen.classList.remove('show');
+
+            // 窗户关闭动画
+            setTimeout(() => {
+                windowLeft.classList.remove('open');
+                windowRight.classList.remove('open');
+            }, 200);
+
+            // 恢复初始屏幕
+            setTimeout(() => {
+                initialScreen.classList.remove('pushing');
+            }, 400);
+
+            // 动画完成后更新状态
+            setTimeout(() => {
+                isWindowOpen = false;
+                isAnimating = false;
+                updateProgress();
+            }, 1200);
+        }
+
+        // 添加滑动手势支持
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (isAnimating) return;
+            
+            const swipeThreshold = 120;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0 && !isWindowOpen) {
+                    // 向左滑动，打开窗户
+                    autoOpenWindow();
+                } else if (diff < 0 && isWindowOpen) {
+                    // 向右滑动，关闭窗户
+                    autoCloseWindow();
+                }
+            }
+        }
+
+        // 添加键盘支持
+        document.addEventListener('keydown', e => {
+            if (isAnimating) return;
+            
+            if (e.key === 'ArrowRight' && !isWindowOpen) {
+                autoOpenWindow();
+            } else if (e.key === 'ArrowLeft' && isWindowOpen) {
+                autoCloseWindow();
+            }
+        });
+
+        // 点击进度点切换
+        document.getElementById('dot1').addEventListener('click', () => {
+            if (!isWindowOpen && !isAnimating) autoOpenWindow();
+        });
+
+        document.getElementById('dot2').addEventListener('click', () => {
+            if (isWindowOpen && !isAnimating) autoCloseWindow();
+        });
+
+        // 页面加载动画
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.5s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
