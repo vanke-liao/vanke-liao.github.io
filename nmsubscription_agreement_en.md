@@ -1,6 +1,6 @@
 # Subscription Agreement
 
-**Effective Date: January 1, 2025**
+**Effective Date: January 1, 2026**
 
 ## 1. Service Description
 
